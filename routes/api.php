@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProblemsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,11 +20,21 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
 
+    Route::prefix('problem')->group(function () {
+        Route::get('all',[ProblemsController::class,'index']);
+        Route::get('view/{id}',[ProblemsController::class,'view']);
+    });
 
 
 
     Route::group(['middleware' => 'admin'], function ($router) {
-
+        Route::prefix('problem')->group(function () {
+            Route::get('all',[ProblemsController::class,'index']);
+            Route::post('create',[ProblemsController::class,'create']);
+            Route::get('view/{id}',[ProblemsController::class,'view']);
+            Route::post('update',[ProblemsController::class,'update']);
+            Route::get('delete/{id}',[ProblemsController::class,'delete']);
+        });
     });
 });
 
