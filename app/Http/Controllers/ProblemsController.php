@@ -10,7 +10,7 @@ class ProblemsController extends Controller
 {
     public function index()
     {
-        $problems = Problems::latest()->get();
+        $problems = Problems::latest()->with('testCases')->get();
         return  response()->json($problems);
     }
 
@@ -20,11 +20,10 @@ class ProblemsController extends Controller
         $problem->category_id = $request->category_id;
         $problem->title = $request->title;
         $problem->description = $request->description;
-        $problem->sample_input = $request->sample_input;
-        $problem->sample_output = $request->sample_output;
         $problem->score = $request->score;
         $problem->save();
-        $testCases = json_decode($request->testCase, true);
+        //$testCases = json_decode($request->testCase, true);
+        $testCases = $request->testCase;
         foreach ($testCases as $key => $data){
             $testCase = new TestCases();
             $testCase->problem_id = $problem->id;
@@ -47,8 +46,6 @@ class ProblemsController extends Controller
         $problem = Problems::find($request->id);;
         $problem->title = $request->title;
         $problem->description = $request->description;
-        $problem->sample_input = $request->sample_input;
-        $problem->sample_output = $request->sample_output;
         $problem->score = $request->score;
         $problem->save();
 
