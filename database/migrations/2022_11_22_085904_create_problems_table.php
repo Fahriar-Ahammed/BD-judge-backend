@@ -12,8 +12,6 @@ return new class extends Migration {
             $table->bigInteger('category_id');
             $table->string('title');
             $table->text('description');
-            $table->string('sample_input');
-            $table->string('sample_output');
             $table->string('score');
             $table->timestamps();
         });

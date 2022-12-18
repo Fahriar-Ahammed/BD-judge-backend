@@ -24,7 +24,7 @@ class ProblemsController extends Controller
         $problem->sample_output = $request->sample_output;
         $problem->score = $request->score;
         $problem->save();
-        $testCases = json_decode($request->testCases, true);
+        $testCases = json_decode($request->testCase, true);
         foreach ($testCases as $key => $data){
             $testCase = new TestCases();
             $testCase->problem_id = $problem->id;

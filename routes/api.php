@@ -22,13 +22,11 @@ Route::group([
 
     Route::prefix('problem')->group(function () {
         Route::get('all',[ProblemsController::class,'index']);
-        Route::get('view/{id}',[ProblemsController::class,'view']);
+        Route::get('view/{id}',[ProblemsController::class,'show']);
     });
 
-
-
     Route::group(['middleware' => 'admin'], function ($router) {
-        Route::prefix('problem')->group(function () {
+        Route::prefix('problems')->group(function () {
             Route::get('all',[ProblemsController::class,'index']);
             Route::post('create',[ProblemsController::class,'create']);
             Route::get('view/{id}',[ProblemsController::class,'view']);
