@@ -10,7 +10,7 @@ class ProblemsController extends Controller
 {
     public function index()
     {
-        $problems = Problems::latest()->with('testCases')->get();
+        $problems = Problems::latest()->get();
         return  response()->json($problems);
     }
 
@@ -37,7 +37,7 @@ class ProblemsController extends Controller
 
     public function show($id)
     {
-        $problem = Problems::find($id);
+        $problem = Problems::where('id',$id)->with('testCases')->first();
         return response()->json($problem);
     }
 
